@@ -1,0 +1,14 @@
+name = "please-hold"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# The app is static: HTML, JS, and the vendored WebLLM runtime that runs Gemma in the browser.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
+
+# Opt-in cloud fallback only (Gemma 4 26B). On-device is the default.
+[ai]
+binding = "AI"

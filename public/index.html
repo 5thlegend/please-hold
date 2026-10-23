@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Please Hold</title>
+  <meta name="description" content="Type the customer-service errand you've been avoiding. Get the email, the phone script, and the follow-up, written on your device by open-weight Gemma.">
+  <meta name="theme-color" content="#16120e">
+  <!-- Hugging Face rejects model downloads that carry a *.workers.dev Referer. -->
+  <meta name="referrer" content="no-referrer">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Please Hold">
+  <meta property="og:description" content="One sentence in. The whole customer-service errand out. Runs on your device.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="brand">
+        <img class="mark" src="/icon.svg" alt="" width="44" height="44">
+        <div>
+          <h1>Please Hold</h1>
+          <p class="sub">The customer-service errand you keep putting off, done in one sitting.</p>
+        </div>
+      </div>
+      <div class="engine-chip" id="engineChip" title="Where Gemma is running">Gemma: not loaded</div>
+    </header>
+
+    <section class="card compose" id="compose">
+      <label class="q" for="errand">What have you been putting off?</label>
+      <textarea id="errand" rows="3" maxlength="900" placeholder="e.g. Lumen Fitness charged me $49.99 on Oct 3 even though I cancelled on Sept 28. Member #448210. I want it refunded."></textarea>
+      <div class="examples" id="examples" aria-label="Examples"></div>
+      <p class="hint">Write it like a text to a friend: who, what happened, what you want. Include amounts, dates, and order numbers if you have them. Never type a password or card number.</p>
+
+      <div class="row">
+        <label class="mini">Where you live
+          <select id="region">
+            <option value="US">United States</option>
+            <option value="UK">United Kingdom</option>
+            <option value="EU">European Union</option>
+            <option value="OTHER">Somewhere else</option>
+          </select>
+        </label>
+      </div>
+
+      <fieldset class="where">
+        <legend>Where should Gemma run?</legend>
+        <div class="opts" id="backendOpts"></div>
+      </fieldset>
+
+      <button class="go" id="go">Write my kit</button>
+    </section>
+
+    <section class="card progress hidden" id="progress" aria-live="polite">
+      <ol class="steps" id="steps">
+        <li data-step="load">Waking Gemma up <span class="bar"><span id="loadBar"></span></span><small id="loadText"></small></li>
+        <li data-step="facts">Reading your sentence</li>
+        <li data-step="check1">Checking every fact against your words</li>
+        <li data-step="kit">Writing your email, phone script, and chat message</li>
+        <li data-step="check2">Receipts check on everything Gemma wrote</li>
+      </ol>
+      <p class="tokens" id="tokens"></p>
+    </section>
+
+    <section class="kit hidden" id="kit">
+      <div class="card receipt" id="receipt"></div>
+
+      <div class="card plan">
+        <div class="plan-grid">
+          <div><h3>You're asking for</h3><p id="goal"></p></div>
+          <div><h3>If they say no</h3><p id="fallback"></p></div>
+          <div><h3>Have these ready</h3><ul id="missing"></ul></div>
+        </div>
+        <details class="facts"><summary>Facts Gemma used <span id="factCount"></span></summary><ul id="factList"></ul></details>
+      </div>
+
+      <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="phone" aria-selected="true">Phone script</button>
+        <button role="tab" data-tab="email">Email</button>
+        <button role="tab" data-tab="chat">Chat</button>
+        <button role="tab" data-tab="leverage">Your leverage</button>
+        <button role="tab" data-tab="after">After the call</button>
+      </nav>
+
+      <div class="card pane" data-pane="phone">
+        <div class="script">
+          <h3>When someone answers</h3><div class="txt" id="phoneOpener" contenteditable="true"></div>
+          <h3>Say exactly what you want</h3><div class="txt" id="phoneAsk" contenteditable="true"></div>
+          <h3>If they push back</h3><div class="txt list" id="phoneRefuse" contenteditable="true"></div>
+          <h3>Before you hang up</h3><div class="txt" id="phoneClose" contenteditable="true"></div>
+        </div>
+        <h3>Getting to a human <span class="tag">general tips, written by us</span></h3>
+        <ul class="tips" id="tips"></ul>
+        <button class="go" id="startCall">I'm calling now: start hold mode</button>
+      </div>
+
+      <div class="card pane hidden" data-pane="email">
+        <label class="mini">Subject</label>
+        <div class="txt one" id="emailSubject" contenteditable="true"></div>
+        <label class="mini">Message</label>
+        <div class="txt" id="emailBody" contenteditable="true"></div>
+        <div class="actions">
+          <button class="ghost" data-copy="email">Copy email</button>
+          <a class="ghost" id="mailto" href="#">Open in my email app</a>
+        </div>
+      </div>
+
+      <div class="card pane hidden" data-pane="chat">
+        <div class="txt" id="chatMsg" contenteditable="true"></div>
+        <div class="actions"><button class="ghost" data-copy="chat">Copy message</button></div>
+      </div>
+
+      <div class="card pane hidden" data-pane="leverage">
+        <p class="note">These are written by hand and link to official sources. Gemma is not allowed to cite laws, because small models make them up. General information, not legal advice.</p>
+        <div id="leverage"></div>
+      </div>
+
+      <div class="card pane hidden" data-pane="after">
+        <p class="note">Fill this in during or right after the call. Please Hold writes the confirmation email and a reminder from what you type here. No AI involved, so nothing gets made up.</p>
+        <div class="log">
+          <label class="mini">Agent's first name<input id="logRep" autocomplete="off"></label>
+          <label class="mini">Reference number<input id="logRef" autocomplete="off"></label>
+          <label class="mini wide">What they agreed to<input id="logAgreed" autocomplete="off" placeholder="e.g. full refund of $49.99 in 5–7 days"></label>
+          <label class="mini">Money recovered (optional)<input id="logMoney" inputmode="decimal" placeholder="49.99"></label>
+        </div>
+        <div class="actions">
+          <button class="ghost" id="makeFollowUp">Write my confirmation email</button>
+          <button class="ghost" id="makeIcs">Remind me in 7 days to check</button>
+          <button class="go small" id="finish">Mark errand done</button>
+        </div>
+        <div class="txt hidden" id="followUp" contenteditable="true"></div>
+      </div>
+    </section>
+
+    <section class="card ledger" id="ledger"></section>
+
+    <footer class="foot">
+      <p><strong>Why it runs on your device:</strong> customer-service errands are full of account numbers, addresses, and money. Please Hold runs open-weight Gemma in your browser, so none of that leaves your machine unless you pick the cloud option.</p>
+      <p>Built for the DEV Hacktoberfest Open-Source AI Challenge, Week 3: Slow and Steady. <a href="https://github.com/5thlegend/please-hold">Source on GitHub</a>.</p>
+    </footer>
+  </main>
+
+  <div class="hold hidden" id="hold" role="dialog" aria-label="Hold mode">
+    <div class="hold-inner">
+      <div class="hold-top">
+        <span class="hold-label" id="holdLabel">On hold</span>
+        <span class="hold-time" id="holdTime">0:00</span>
+        <button class="ghost small" id="musicToggle">Music: on</button>
+      </div>
+      <div class="hold-card">
+        <h3>First thing you say</h3><p id="hOpener"></p>
+        <h3>What you want</h3><p id="hAsk"></p>
+        <h3>If they say no</h3><ul id="hRefuse"></ul>
+        <h3>Before you hang up</h3><p id="hClose"></p>
+      </div>
+      <div class="hold-actions">
+        <button class="go" id="answered">A person answered</button>
+        <button class="ghost" id="callDone">Call's over</button>
+      </div>
+      <p class="hold-foot">Your hold music, not theirs. Generated on your device.</p>
+    </div>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

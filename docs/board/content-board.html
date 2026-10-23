@@ -1,0 +1,344 @@
+<title>Please Hold Devlog</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<!-- NEXT REALM board. Accent = hold-line amber (the app's own signature), sage for "verified". -->
+<style>
+  :root{
+    color-scheme: dark;
+    --vanta:#0b0907; --panel:#15110d; --panel-2:#1d1812; --panel-3:#262019;
+    --edge:#2e261d; --edge-2:#463a2c;
+    --ink:#f3ebe0; --ink-dim:#c4b7a5; --ink-mute:#857866;
+    --accent:#f2b84b; --accent-2:#9fb8a0; --accent-deep:#a77a26;
+    --green:#9fb8a0; --warn:#ffe3a3; --warn-bg:#5a4210; --red:#ffb3a5; --red-bg:#6b2a20;
+    --shadow:0 24px 54px -24px rgba(0,0,0,.95); --r:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:
+      radial-gradient(1200px 720px at 82% -10%, rgba(242,184,75,.11), transparent 56%),
+      radial-gradient(900px 600px at 0% 4%, rgba(159,184,160,.09), transparent 60%),
+      var(--vanta);
+    color:var(--ink);font-family:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .lbl{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute)}
+  a{color:var(--accent)}
+  img{cursor:zoom-in;max-width:100%}
+
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:41;background:var(--vanta)}
+  header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(11,9,7,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--edge)}
+  .top .wrap{display:flex;align-items:center;gap:10px;min-height:54px;flex-wrap:wrap}
+  .brand{font-family:"Chakra Petch",sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:14px;margin-right:auto}
+  .brand .n{color:var(--accent)}
+  .pill{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--accent);border:1px solid var(--accent-deep);background:rgba(242,184,75,.07);border-radius:999px;padding:5px 12px}
+  nav{display:flex;gap:3px;flex-wrap:wrap}
+  nav a{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-dim);padding:5px 8px;border-radius:7px;border:1px solid transparent;text-decoration:none}
+  nav a:hover{border-color:var(--edge-2);color:var(--accent)}
+
+  .hero{border-bottom:1px solid var(--edge);padding-block:52px 34px}
+  .hero .kick{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+  .hero h1{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:clamp(44px,10vw,100px);line-height:.9;margin:0;text-wrap:balance}
+  .hero .tag{font-family:"Chakra Petch",sans-serif;font-weight:500;font-size:clamp(14px,3vw,20px);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim);margin-top:14px}
+  .hero p.note{max-width:72ch;color:var(--ink-dim);margin:16px 0 0;font-size:16px}
+  .hero p.note b{color:var(--ink)}
+  .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .links a{font-family:"IBM Plex Mono",monospace;font-size:12px;text-decoration:none;border:1px solid var(--edge-2);border-radius:9px;padding:8px 12px;color:var(--ink)}
+  .links a.main{background:var(--accent);color:#1d1407;border-color:var(--accent);font-weight:500}
+
+  section{padding-block:42px;scroll-margin-top:64px;border-top:1px solid var(--edge)}
+  .sh{display:flex;align-items:baseline;gap:14px;margin:0 0 18px;flex-wrap:wrap}
+  .sh .idx{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent-deep)}
+  .sh h2{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:clamp(21px,4vw,30px);margin:0}
+  .sh .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--edge-2),transparent)}
+  .intro{color:var(--ink-dim);font-size:15px;max-width:78ch;margin:0 0 22px}
+  .intro b{color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media(max-width:860px){.grid.three{grid-template-columns:1fr}}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--edge);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow);min-width:0}
+  .card h3{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:17px;margin:0 0 10px;color:var(--accent)}
+  .card p{margin:0 0 11px;font-size:14px;color:var(--ink-dim)} .card p:last-child{margin-bottom:0} .card p b{color:var(--ink)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  @media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .stat{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:14px 16px}
+  .stat b{display:block;font-family:"Chakra Petch",sans-serif;font-size:32px;line-height:1.05;color:var(--accent);font-variant-numeric:tabular-nums}
+  .stat span{font-size:13px;color:var(--ink-dim)}
+
+  /* build log */
+  .log{display:grid;gap:14px}
+  .entry{display:grid;grid-template-columns:112px minmax(0,1fr);gap:16px;background:var(--panel);border:1px solid var(--edge);border-radius:var(--r);padding:16px 18px}
+  @media(max-width:600px){.entry{grid-template-columns:1fr;gap:6px}}
+  .entry .meta{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-mute);letter-spacing:.08em}
+  .entry .meta .tagx{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:999px;border:1px solid var(--edge-2);font-size:10px;text-transform:uppercase}
+  .tagx.pivot{color:var(--accent);border-color:var(--accent-deep)}
+  .tagx.bug{color:var(--red);border-color:#7d3a2e}
+  .tagx.fix,.tagx.data{color:var(--green);border-color:#4d5e4e}
+  .entry h3{font-family:"Chakra Petch",sans-serif;font-size:17px;margin:0 0 6px}
+  .entry p{margin:0;color:var(--ink-dim);font-size:14.5px;max-width:78ch}
+  .entry p+p{margin-top:8px}
+  code{font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:var(--panel-3);border-radius:5px;padding:1px 5px;color:var(--ink)}
+
+  /* receipts demo */
+  .receipt{font-size:15px;line-height:1.7;background:var(--panel-2);border:1px solid var(--edge-2);border-radius:12px;padding:14px 16px}
+  mark.v{background:none;color:inherit;border-bottom:1px dotted var(--green)}
+  mark.u{background:var(--warn-bg);color:var(--warn);border-radius:4px;padding:0 3px}
+  mark.c{background:var(--red-bg);color:var(--red);border-radius:4px;padding:0 3px}
+  .ph{color:var(--accent)}
+
+  /* bars */
+  .bars{display:grid;gap:14px}
+  .bar{display:grid;grid-template-columns:190px minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:14px}
+  @media(max-width:600px){.bar{grid-template-columns:1fr 54px}.bar .track{grid-column:1/-1;grid-row:2}}
+  .track{height:14px;background:var(--panel-3);border-radius:7px;overflow:hidden;display:flex}
+  .track i{display:block;height:100%}
+  .track i.v{background:var(--green)} .track i.u{background:#c99a2e} .track i.c{background:#c4553f}
+  .bar .n{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}
+  .key{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-dim);margin-top:10px}
+  .key span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+  .tablewrap{overflow-x:auto;margin-top:18px}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--edge)}
+  th{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);font-weight:500}
+  td.num{font-variant-numeric:tabular-nums;text-align:right}
+
+  .imgcard{background:var(--panel);border:1px solid var(--edge);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);min-width:0}
+  .imgcard .im{position:relative;background:#000;aspect-ratio:4/3;overflow:hidden}
+  .imgcard .im img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .3s}
+  .imgcard:hover .im img{transform:scale(1.02)}
+  .imgcard .body{padding:12px 15px;font-size:13.5px;color:var(--ink-dim)}
+
+  /* content wall */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+  .tabs button{font-family:"IBM Plex Mono",monospace;font-size:12px;padding:8px 14px;border-radius:999px;border:1px solid var(--edge-2);background:transparent;color:var(--ink-dim);cursor:pointer}
+  .tabs button[aria-selected="true"]{background:var(--accent);color:#1d1407;border-color:var(--accent)}
+  .post{background:var(--panel);border:1px solid var(--edge);border-radius:var(--r);padding:16px 18px;margin-bottom:14px}
+  .post .cap{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  .post .cap .t{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:15px}
+  pre{background:#0d0a07;border:1px solid var(--edge-2);border-radius:10px;padding:14px 15px;overflow-x:auto;margin:0;font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:14px;line-height:1.55;color:#e8dfd2;white-space:pre-wrap;word-break:break-word}
+  .copybtn{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:rgba(242,184,75,.1);border:1px solid var(--accent-deep);border-radius:6px;padding:5px 10px;cursor:pointer}
+  .copybtn.done{color:var(--green);border-color:var(--green)}
+  .copybtn:focus-visible,.tabs button:focus-visible,.links a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  #lb{position:fixed;inset:0;z-index:100;background:rgba(3,3,2,.96);display:none;align-items:center;justify-content:center;padding:22px;cursor:zoom-out}
+  #lb.on{display:flex}
+  #lb img{max-width:100%;max-height:100%;border-radius:8px}
+  #lb .x{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:max(20px,env(safe-area-inset-right,0px));font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink);border:1px solid var(--edge-2);border-radius:8px;padding:7px 13px;background:rgba(11,9,7,.85)}
+
+  footer{border-top:1px solid var(--edge);margin-top:12px}
+  footer .wrap{padding-block:26px 48px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  footer .m{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-mute)}
+  @media (prefers-reduced-motion: reduce){.imgcard .im img{transition:none}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><span class="n">NEXT REALM</span> · PLEASE HOLD</div>
+    <span class="pill">HF26 · WEEK 3 · LIVE</span>
+    <nav><a href="#pitch">Pitch</a><a href="#log">Build log</a><a href="#data">Data</a><a href="#shots">Screens</a><a href="#wall">Posts</a></nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="kick">Hacktoberfest open-source AI · Slow and Steady</p>
+    <h1>Please Hold</h1>
+    <p class="tag">One sentence in. The whole customer-service errand out.</p>
+    <p class="note">The errand you keep putting off: the refund, the cancellation, the bill that jumped $30. Type it once. Gemma, running <b>in your browser</b>, writes the phone script, the email and the chat message. Then a receipts check removes anything you never said.</p>
+    <div class="links">
+      <a class="main" href="https://please-hold.dankpenta.workers.dev" target="_blank" rel="noopener">Open the app ↗</a>
+      <a href="[DEV POST LINK]" target="_blank" rel="noopener">DEV post</a>
+      <a href="https://github.com/5thlegend/please-hold" target="_blank" rel="noopener">Source</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="pitch">
+    <div class="sh"><span class="idx">01</span><h2>The pitch</h2><div class="rule"></div><span class="lbl">why this one</span></div>
+    <div class="stats">
+      <div class="stat"><b>$165B</b><span>yearly "annoyance economy" cost (Groundwork Collaborative, Feb 2026)</span></div>
+      <div class="stat"><b>~545</b><span>Week 3 entries already posted when we picked</span></div>
+      <div class="stat"><b>0</b><span>of them on the customer's side of the phone call</span></div>
+      <div class="stat"><b>~216</b><span>words written per errand, from a ~25-word sentence</span></div>
+    </div>
+    <div class="grid" style="margin-top:16px">
+      <div class="card"><h3>What you get</h3><p><b>Phone script</b> with the opener, the ask, three lines for when they say no, and the close. Plus an <b>email</b>, a <b>chat message</b>, hand-written <b>rights pointers</b> with official sources, <b>hold mode</b> with your own hold music, and an <b>after-call</b> confirmation email and reminder built from your notes.</p></div>
+      <div class="card"><h3>The rule</h3><p><b>The model writes words, never facts.</b> Every fact has to quote you. Every phone number, URL, amount, date, deadline and law in the output is checked against what you typed. Invented contact details are removed; anything else you didn't say gets highlighted.</p></div>
+    </div>
+  </section>
+
+  <section id="log">
+    <div class="sh"><span class="idx">02</span><h2>Build log</h2><div class="rule"></div><span class="lbl">Oct 20–23, 2026</span></div>
+    <p class="intro">In order, including the parts that went wrong.</p>
+    <div class="log">
+      <article class="entry"><div class="meta">STEP 1<br><span class="tagx">brief</span></div><div><h3>Week 3 is open, five days left</h3><p>Theme: build something with open-weight AI that rewards laziness. We pitched three ideas. The pick was an offline bedtime companion that slows down with you.</p></div></article>
+      <article class="entry"><div class="meta">STEP 2<br><span class="tagx data">research</span></div><div><h3>Go read what people actually complain about</h3><p>Four research tracks: life admin, household and food, sleep, developer chores. The loudest pain wasn't sleep or inboxes. It was dealing with companies: phone trees, hold time, subscriptions that won't cancel. Calm sits at 1.4/5 on Trustpilot, mostly billing-trap reviews.</p></div></article>
+      <article class="entry"><div class="meta">STEP 3<br><span class="tagx pivot">pivot</span></div><div><h3>Our first idea was taken four times</h3><p>A check of the challenge tag found Sloth Companion, SnoozeScape, Compline and SlumberSafe: all bedtime companions. Fridge apps and file sorters were crowded too. Nobody had built for the customer's side of the call. New pick: Please Hold.</p></div></article>
+      <article class="entry"><div class="meta">STEP 4<br><span class="tagx">build</span></div><div><h3>Gemma 4 in the browser</h3><p>Gemma 4 E2B only exists in WebLLM 0.2.86, so that version is pinned and vendored. Gemma 3 1B for smaller GPUs, your own Ollama, and an opt-in Gemma 4 26B on Cloudflare for phones. Same open family, you pick where it runs.</p></div></article>
+      <article class="entry"><div class="meta">STEP 5<br><span class="tagx">build</span></div><div><h3>The receipts check</h3><p>Plain JavaScript, no model. It finds every checkable claim in Gemma's output and compares it to your sentence. Unit tests passed on the first run, which never happens.</p></div></article>
+      <article class="entry"><div class="meta">STEP 6<br><span class="tagx data">eval</span></div><div><h3>24 errands through the cloud model</h3><p>178 checkable claims. 174 matched the user's words, 0 invented contact details, 4 flagged: "$110", which Gemma calculated from "$120, supposed to be $10". The math is right, but you never said it, so you get asked to confirm.</p></div></article>
+      <article class="entry"><div class="meta">STEP 7<br><span class="tagx bug">bug</span></div><div><h3>CacheStorage error, then CORS, then curl says it's fine</h3><p>The on-device model wouldn't download from the live site. Replaying Chrome's exact request with curl, one header at a time: Hugging Face returns <code>404</code> with no CORS headers whenever the <code>Referer</code> is a <code>*.workers.dev</code> page.</p></div></article>
+      <article class="entry"><div class="meta">STEP 8<br><span class="tagx fix">fix</span></div><div><h3>One meta tag</h3><p><code>&lt;meta name="referrer" content="no-referrer"&gt;</code> plus a <code>Referrer-Policy</code> header. All model files returned 200 on the next try.</p></div></article>
+      <article class="entry"><div class="meta">STEP 9<br><span class="tagx data">eval</span></div><div><h3>On-device run, RTX 4050 laptop</h3><p>{{DEVICE_LOG}}</p></div></article>
+    </div>
+  </section>
+
+  <section id="data">
+    <div class="sh"><span class="idx">03</span><h2>Does it behave?</h2><div class="rule"></div><span class="lbl">24 test errands per model</span></div>
+    <p class="intro">Every checkable claim Gemma wrote, sorted by what the receipts check decided. The test errands are in <code>test/errands.json</code>.</p>
+    <div class="card" style="margin-bottom:16px">
+      <h3>What the check looks like</h3>
+      <div class="receipt">Hello, I'm calling about a charge of <mark class="v">$49.99</mark> on <mark class="v">Oct 3</mark>. I cancelled on <mark class="v">Sept 28</mark>, member number <mark class="v">448210</mark>. You can reach me at <span class="ph">[ACCOUNT EMAIL]</span>. Please refund it <mark class="u">within 5 business days</mark>, or I'll call <mark class="c">[COMPANY PHONE — copy it from your bill]</mark>.</div>
+      <div class="key"><span style="--c:var(--green)">from your words</span><span style="--c:#c99a2e">not from you: check it</span><span style="--c:#c4553f">invented contact detail: removed</span></div>
+    </div>
+    <div class="bars">
+{{BARS}}
+    </div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Model</th><th>Runs on</th><th style="text-align:right">Errands OK</th><th style="text-align:right">Matched</th><th style="text-align:right">Flagged</th><th style="text-align:right">Removed</th><th style="text-align:right">Avg time</th></tr></thead>
+      <tbody>
+{{ROWS}}
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="shots">
+    <div class="sh"><span class="idx">04</span><h2>Screens</h2><div class="rule"></div><span class="lbl">tap to zoom</span></div>
+    <div class="grid three">
+      <div class="imgcard"><div class="im"><img src="img/02-kit.png" alt="A finished kit with the receipts summary"></div><div class="body">The kit, with the receipts summary on top.</div></div>
+      <div class="imgcard"><div class="im"><img src="img/05-hold.png" alt="Hold mode: timer and script"></div><div class="body">Hold mode: timer, script, your own hold music.</div></div>
+      <div class="imgcard"><div class="im"><img src="img/06-after.png" alt="After the call: confirmation email"></div><div class="body">After the call: confirmation email from your notes.</div></div>
+    </div>
+  </section>
+
+  <section id="wall">
+    <div class="sh"><span class="idx">05</span><h2>Posts</h2><div class="rule"></div><span class="lbl">copy, paste, post</span></div>
+    <p class="intro">Replace <b>[link]</b> with the DEV post URL once it's live. Every number here comes from the eval or the research report.</p>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="x" aria-selected="true">X</button>
+      <button role="tab" data-tab="ig" aria-selected="false">Instagram</button>
+      <button role="tab" data-tab="yt" aria-selected="false">YouTube</button>
+    </div>
+
+    <div data-pane="x">
+      <div class="post"><div class="cap"><span class="t">Launch thread · 6 posts</span><button class="copybtn" data-copy="x1">Copy</button></div><pre id="x1">1/ Everyone has one errand they keep putting off.
+
+The refund. The cancellation. The bill that jumped $30 with no warning.
+
+So I built Please Hold. You type one sentence. It writes the whole phone call for you. Runs on your own GPU.
+
+2/ Before building, I had an agent read what people actually complain about.
+
+The loudest pain wasn't sleep or inboxes. It was calling companies. Phone trees, hold time, subscriptions that won't cancel.
+
+Calm: 1.4/5 on Trustpilot. Mostly billing traps.
+
+3/ One sentence in:
+"Lumen Fitness charged me $49.99 on Oct 3 even though I cancelled Sept 28."
+
+Out:
+→ phone script (opener, ask, 3 lines for when they say no)
+→ email + chat message
+→ your rights, with official sources
+→ hold mode with your own hold music
+
+4/ The rule: the model writes words, never facts.
+
+Small models love to add a phone number or a "5 business days" promise you never gave them.
+
+A plain-JS receipts check compares every number, date and law in the output to what you typed. Invented contact details get removed.
+
+5/ Ran 24 test errands through Gemma 4.
+178 checkable claims. 174 matched the user's words. 0 invented contact details. 4 flagged for a human to check.
+
+{{X_DEVICE}}
+
+6/ Gemma 4 in the browser via WebLLM. Your account numbers never leave the machine.
+
+Built for the DEV Hacktoberfest open-source AI challenge.
+
+Try it / read the build: [link]</pre></div>
+      <div class="post"><div class="cap"><span class="t">Single post · the bug</span><button class="copybtn" data-copy="x2">Copy</button></div><pre id="x2">PSA if you ship in-browser models on Cloudflare workers.dev:
+
+Hugging Face returns 404 (no CORS headers) when the Referer is a *.workers.dev page.
+
+Chrome says "CORS". curl says it's fine. You lose an afternoon.
+
+Fix: &lt;meta name="referrer" content="no-referrer"&gt;
+
+Found it building Please Hold: [link]</pre></div>
+    </div>
+
+    <div data-pane="ig" hidden>
+      <div class="post"><div class="cap"><span class="t">Carousel caption · 7 slides</span><button class="copybtn" data-copy="ig1">Copy</button></div><pre id="ig1">The errand you keep putting off? Type it once. ☎️
+
+Please Hold turns one sentence into the whole customer-service call: what to say first, exactly what to ask for, what to say when they say no, and how to close.
+
+It runs open-weight Gemma right in your browser, so your account numbers never leave your phone or laptop.
+
+The part I'm proudest of: a receipts check. Anything the AI says that you never told it (a phone number, a deadline, a law) gets removed or highlighted before you read it to a real person.
+
+Built this week for the Hacktoberfest open-source AI challenge on DEV. Link in bio.
+
+#buildinpublic #indiedev #opensource #ai #gemma #webdev #hacktoberfest</pre></div>
+      <div class="post"><div class="cap"><span class="t">Slide text</span><button class="copybtn" data-copy="ig2">Copy</button></div><pre id="ig2">1 · You know that errand you keep putting off?
+2 · The refund. The cancellation. The bill that jumped $30.
+3 · Type it in one sentence.
+4 · Get the phone script, the email, and what to say when they say no.
+5 · AI loves to make up phone numbers. Ours gets caught and removed.
+6 · Runs in your browser. Your account numbers stay with you.
+7 · Please Hold · link in bio</pre></div>
+    </div>
+
+    <div data-pane="yt" hidden>
+      <div class="post"><div class="cap"><span class="t">Shorts script · ~40 seconds</span><button class="copybtn" data-copy="yt1">Copy</button></div><pre id="yt1">[0–3s] Screen: phone-tree hold screen. VO: "Everybody has that one call they keep putting off."
+[3–8s] Typing one sentence into Please Hold. VO: "So I made the call write itself."
+[8–16s] Kit appears. VO: "Phone script, email, chat message, and what to say when they say no."
+[16–24s] Zoom on a red removed phone number. VO: "Small AI models love making up phone numbers. This one checks every number against what you actually typed."
+[24–32s] Hold mode, timer running, music. VO: "Hold mode gives you your script and your own hold music."
+[32–40s] Lazy ledger. VO: "It runs in your browser. Your account numbers never leave. Link's in the description."</pre></div>
+      <div class="post"><div class="cap"><span class="t">Community post</span><button class="copybtn" data-copy="yt2">Copy</button></div><pre id="yt2">New build: Please Hold ☎️
+
+One sentence about the customer-service errand you've been avoiding → a full phone script, email and chat message, written by open-weight Gemma running in your browser.
+
+Every number, date and law in what the AI writes gets checked against what you actually said. In 24 test errands on the cloud model, it invented zero contact details.
+
+Full build story + live app: [link]
+
+What's the one call you've been putting off? 👇</pre></div>
+    </div>
+  </section>
+</div>
+
+<div id="lb"><span class="x">✕ close</span><img alt="zoom"></div>
+<footer><div class="wrap"><span class="m">◈ NEXT REALM · PLEASE HOLD</span><span class="m">Slow and steady. The call writes itself.</span></div></footer>
+
+<script>
+(function(){
+  var lb=document.getElementById('lb'), im=lb&&lb.querySelector('img');
+  if(lb){document.querySelectorAll('.im img').forEach(function(img){
+    img.addEventListener('click',function(e){e.stopPropagation();im.src=this.currentSrc||this.src;lb.classList.add('on');});});
+    lb.addEventListener('click',function(){lb.classList.remove('on');im.removeAttribute('src');});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.classList.remove('on');im.removeAttribute('src');}});}
+  document.querySelectorAll('.copybtn[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var el=document.getElementById(b.getAttribute('data-copy')); if(!el) return;
+      var o=b.textContent;
+      navigator.clipboard.writeText(el.innerText).then(function(){
+        b.textContent='Copied ✓';b.classList.add('done');
+        setTimeout(function(){b.textContent=o;b.classList.remove('done');},1600);
+      }).catch(function(){
+        var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected: copy it';
+      });
+    });
+  });
+  var tabs=document.querySelectorAll('.tabs button');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.setAttribute('aria-selected',String(x===t));});
+    document.querySelectorAll('[data-pane]').forEach(function(p){p.hidden=p.getAttribute('data-pane')!==t.getAttribute('data-tab');});
+  });});
+})();
+</script>

@@ -1,0 +1,10 @@
+{
+  "name": "Please Hold",
+  "short_name": "Please Hold",
+  "description": "One sentence in. The whole customer-service errand out. Runs on your device.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#16120e",
+  "theme_color": "#16120e",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
