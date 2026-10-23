@@ -1,0 +1,25 @@
+{
+ "totals": {
+  "backend": "device-4",
+  "model": "",
+  "errands": 2,
+  "ok": 0,
+  "verified": 0,
+  "caught": 0,
+  "unverified": 0,
+  "dropped": 0,
+  "placeholders": 0,
+  "avgSecs": null,
+  "avgWords": null
+ },
+ "results": [
+  {
+   "errand": "Lumen Fitness charged me $49.99 on Oct 3 even though I cancelled on Sept 28. Member #448210. I want it refunded.",
+   "error": "Your GPU reset while Gemma was writing (usually not enough free video memory). Try again, or pick Gemma 3 1B or the cloud option."
+  },
+  {
+   "errand": "My Northwind Internet bill went from $65 to $95 this month with no warning. Account 7731-0042. I want the old price back.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  }
+ ]
+}

@@ -1,0 +1,325 @@
+{
+ "totals": {
+  "model": "gemma3:4b",
+  "errands": 24,
+  "ok": 24,
+  "verified": 151,
+  "caught": 0,
+  "unverified": 4,
+  "dropped": 6,
+  "placeholders": 53,
+  "avgSecs": 16.7,
+  "avgWords": 224
+ },
+ "results": [
+  {
+   "errand": "Lumen Fitness charged me $49.99 on Oct 3 even though I cancelled on Sept 28. Member #448210. I want it refunded.",
+   "secs": 13.836,
+   "verified": 12,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 220
+  },
+  {
+   "errand": "My Northwind Internet bill went from $65 to $95 this month with no warning. Account 7731-0042. I want the old price back.",
+   "secs": 14.993,
+   "verified": 12,
+   "caught": 0,
+   "unverified": 4,
+   "placeholders": 2,
+   "kept": 4,
+   "dropped": 0,
+   "flags": [
+    {
+     "kind": "money",
+     "text": "$30",
+     "status": "unverified"
+    },
+    {
+     "kind": "money",
+     "text": "$30",
+     "status": "unverified"
+    },
+    {
+     "kind": "money",
+     "text": "$30",
+     "status": "unverified"
+    },
+    {
+     "kind": "money",
+     "text": "$30",
+     "status": "unverified"
+    }
+   ],
+   "words": 226
+  },
+  {
+   "errand": "I returned a coffee grinder to Brightway Home on Sept 30 (order BH-20931) and still haven't gotten my $89 refund.",
+   "secs": 13.905,
+   "verified": 17,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 213
+  },
+  {
+   "errand": "StreamBox keeps charging me $15.99 a month for a plan I never signed up for. Cancel it and refund the last two charges.",
+   "secs": 14.352,
+   "verified": 7,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 252
+  },
+  {
+   "errand": "Cancel my Pebble Mobile line. I don't know their number or my account number, I just want out.",
+   "secs": 12.275,
+   "verified": 0,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 3,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 202
+  },
+  {
+   "errand": "Skyway Air lost my suitcase on my flight home last Tuesday. I need it found or I need to be paid for it.",
+   "secs": 14.01,
+   "verified": 0,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 3,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 245
+  },
+  {
+   "errand": "Harbor Bank charged me a $35 overdraft fee when my paycheck was literally pending. Get the fee reversed.",
+   "secs": 12.638,
+   "verified": 3,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 233
+  },
+  {
+   "errand": "My Kettle & Co blender stopped working after 2 weeks. I want a replacement, not a repair.",
+   "secs": 12.234,
+   "verified": 0,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 191
+  },
+  {
+   "errand": "Greenline Energy says I owe $212 but my meter reading was 4410 and they billed for 4810. Fix the bill.",
+   "secs": 14.636,
+   "verified": 9,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 217
+  },
+  {
+   "errand": "Cancel my CloudVault storage subscription before it renews on November 1. It's $119.99 a year.",
+   "secs": 15.558,
+   "verified": 8,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 197
+  },
+  {
+   "errand": "The dentist office billed my insurance wrong and now Mercy Dental says I owe $340. I need them to resubmit the claim.",
+   "secs": 16.557,
+   "verified": 2,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 1,
+   "dropped": 1,
+   "flags": [],
+   "words": 227
+  },
+  {
+   "errand": "QuickCart delivered someone else's groceries to me and charged me $76.40 for my order that never came.",
+   "secs": 17.578,
+   "verified": 9,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 3,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 213
+  },
+  {
+   "errand": "I got charged twice for the same Fern & Fig dinner, $58.20 each, on Oct 11. Refund one of them.",
+   "secs": 17.294,
+   "verified": 11,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 1,
+   "flags": [],
+   "words": 226
+  },
+  {
+   "errand": "My landlord's property company, Oakridge Living, hasn't fixed the heat in unit 3B for 9 days.",
+   "secs": 19.543,
+   "verified": 0,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 1,
+   "flags": [],
+   "words": 253
+  },
+  {
+   "errand": "Velo Gym won't let me cancel online and says I have to come in person. I moved 300 miles away.",
+   "secs": 18.781,
+   "verified": 3,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 1,
+   "dropped": 1,
+   "flags": [],
+   "words": 230
+  },
+  {
+   "errand": "Bolt Rentals kept my $500 security deposit and said the carpet was damaged, but it was like that when I moved in.",
+   "secs": 19.106,
+   "verified": 7,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 1,
+   "dropped": 1,
+   "flags": [],
+   "words": 245
+  },
+  {
+   "errand": "I ordered shoes from Stride Outlet, order SO-55812, they came in the wrong size and the return label link is broken.",
+   "secs": 19.688,
+   "verified": 4,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 224
+  },
+  {
+   "errand": "Hulu-style app NightReel raised my price without telling me. Downgrade me to the basic plan.",
+   "secs": 17.873,
+   "verified": 0,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 199
+  },
+  {
+   "errand": "My car insurance with Maple Mutual went up 22% at renewal and I've had no claims. Ask why and ask for a lower rate.",
+   "secs": 19.032,
+   "verified": 4,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 3,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 249
+  },
+  {
+   "errand": "Sunrise Pharmacy charged me $120 for a prescription that's supposed to be $10 with my insurance.",
+   "secs": 17.971,
+   "verified": 7,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 3,
+   "kept": 2,
+   "dropped": 1,
+   "flags": [],
+   "words": 218
+  },
+  {
+   "errand": "I need Brightline Cable to stop sending me paper bills and to remove the $2.99 paper bill fee they've been charging.",
+   "secs": 26.037,
+   "verified": 8,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 223
+  },
+  {
+   "errand": "TicketHub cancelled the concert on Oct 18 but only refunded the ticket, not the $31 in fees.",
+   "secs": 19.645,
+   "verified": 15,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 241
+  },
+  {
+   "errand": "Cancel the free trial of PhotoForge before it turns into a $79 annual charge. I signed up 5 days ago.",
+   "secs": 16.7,
+   "verified": 5,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 2,
+   "dropped": 0,
+   "flags": [],
+   "words": 204
+  },
+  {
+   "errand": "ParcelPro says my package was delivered but it wasn't. Tracking number 1Z84F6. It was a $230 monitor.",
+   "secs": 17.028,
+   "verified": 8,
+   "caught": 0,
+   "unverified": 0,
+   "placeholders": 2,
+   "kept": 3,
+   "dropped": 0,
+   "flags": [],
+   "words": 227
+  }
+ ]
+}

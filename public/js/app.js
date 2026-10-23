@@ -35,25 +35,29 @@ $("region").value = store.get("ph.region", "US");
 $("errand").value = store.get("ph.draft", "");
 $("errand").addEventListener("input", () => store.set("ph.draft", $("errand").value));
 
+// The in-tab 1B model is too small for this job (see README), so it only shows with ?lab=1.
+const LAB = new URLSearchParams(location.search).has("lab");
+const OLLAMA_CMD = `OLLAMA_ORIGINS=${location.origin} ollama serve`;
+const OLLAMA_CMD_WIN = `$env:OLLAMA_ORIGINS="${location.origin}"; ollama serve`;
+
 async function setupBackends() {
   const [gpu, olla] = await Promise.all([webgpuSupport(), ollamaModels()]);
   const avail = {
-    "device-4": gpu.ok && gpu.f16,
-    "device-1": gpu.ok && gpu.f16,
+    "device-1": LAB && gpu.ok && gpu.f16,
     ollama: olla.length > 0,
     cloud: true,
   };
   const desc = {
-    "device-4": ["Best on-device quality. 2.8 GB download once, then works offline.", "stays on this device"],
-    "device-1": ["Lighter. 0.6 GB download once. For smaller GPUs and laptops.", "stays on this device"],
-    ollama: [olla.length ? `Found ${olla[0]}${olla.length > 1 ? " and " + (olla.length - 1) + " more" : ""} on this machine.` : "Not detected. Needs Ollama running with OLLAMA_ORIGINS set.", "stays on this device"],
-    cloud: ["Gemma 4 26B on Cloudflare. For browsers that can't run it locally.", "sends your text to Cloudflare"],
+    "device-1": ["Experimental. Runs in this tab, 0.6 GB once. Too small to be reliable here.", "stays on this device"],
+    ollama: [olla.length ? `Found ${olla[0]}${olla.length > 1 ? " and " + (olla.length - 1) + " more" : ""} on this machine. Free and private.` : "Free and private. Install Ollama, run ollama pull gemma3:4b, then start it with the command below.", "stays on this device"],
+    cloud: ["Try it right now, on any device. Runs Gemma 4 26B on Cloudflare.", "sends your text to Cloudflare"],
   };
   const saved = store.get("ph.backend", null);
-  let pick = saved && avail[saved] && saved !== "cloud" ? saved : avail["device-4"] ? "device-4" : avail.ollama ? "ollama" : null;
-  if (saved === "cloud") pick = "cloud";
+  // Local first; the cloud is never picked for you.
+  let pick = saved && avail[saved] ? saved : avail.ollama ? "ollama" : null;
   $("backendOpts").innerHTML = "";
   for (const k of Object.keys(BACKENDS)) {
+    if (k === "device-1" && !LAB) continue;
     const el = document.createElement("label");
     el.className = "opt" + (avail[k] ? "" : " disabled");
     el.innerHTML = `<input type="radio" name="backend" value="${k}" ${avail[k] ? "" : "disabled"} ${pick === k ? "checked" : ""}>
@@ -61,11 +65,15 @@ async function setupBackends() {
       <em class="badge ${k === "cloud" ? "cloud" : ""}">${desc[k][1]}</em>`;
     $("backendOpts").append(el);
   }
-  if (!gpu.ok) {
-    const p = document.createElement("p");
-    p.className = "hint";
-    p.textContent = "This browser can't run Gemma locally (no WebGPU). Use desktop Chrome or Edge to keep everything on your device, or pick the cloud option.";
+  if (!olla.length) {
+    const p = document.createElement("div");
+    p.className = "ollama-cmd";
+    p.innerHTML = `<span>To keep everything on your computer, start Ollama like this, then reload:</span>
+      <code id="ollamaCmd">${esc(OLLAMA_CMD)}</code><span>Windows PowerShell (quit the Ollama tray app first):</span><code>${esc(OLLAMA_CMD_WIN)}</code><button type="button" class="ghost small" id="copyOllama">Copy Mac/Linux command</button>`;
     $("backendOpts").after(p);
+    $("copyOllama").onclick = async () => {
+      try { await navigator.clipboard.writeText(OLLAMA_CMD); $("copyOllama").textContent = "Copied"; } catch { $("copyOllama").textContent = "Select it"; }
+    };
   }
 }
 setupBackends();
@@ -351,7 +359,7 @@ function renderLedger() {
   if (!l || !l.errands) { $("ledger").classList.add("hidden"); return; }
   $("ledger").classList.remove("hidden");
   $("ledger").innerHTML = `<span class="title">Your lazy ledger (saved on this device only)</span>
-    <span><b>${l.errands}</b>errands finished</span>
+    <span><b>${l.errands}</b>${l.errands === 1 ? "errand" : "errands"} finished</span>
     <span><b>${fmt(l.holdSec)}</b>spent on hold</span>
     <span><b>${l.words}</b>words you didn't have to write</span>
     ${l.money ? `<span><b>$${l.money.toFixed(2)}</b>recovered</span>` : ""}`;

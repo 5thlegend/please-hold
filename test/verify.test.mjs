@@ -41,6 +41,18 @@ const { kept, dropped } = checkFacts(
 assert.equal(kept.length, 2);
 assert.equal(dropped.length, 2);
 
+// A paraphrased "quote" is fine when the fact's numbers check out and its words are the user's.
+const pharm = "Sunrise Pharmacy charged me $120 for a prescription that's supposed to be $10 with my insurance.";
+const p = checkFacts(
+  [
+    { fact: "They were charged $120 for a prescription.", quote: "They were charged $120 for a prescription" },
+    { fact: "Their insurance is involved.", quote: "[UNKNOWN]" },
+    { fact: "They were charged $140 for a prescription.", quote: "They were charged $140" },
+  ],
+  pharm
+);
+assert.deepEqual(p.kept.map((f) => f.fact), ["They were charged $120 for a prescription."]);
+
 const s = summarize([checkText("Call 1-800-555-0199 about [ORDER NUMBER] and $49.99", input)]);
 assert.deepEqual(s, { verified: 1, caught: 1, unverified: 0, placeholders: 2 });
 

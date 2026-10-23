@@ -56,8 +56,8 @@ export function factsMessages(errand) {
 ${RULES}
 Each "fact" is one short, complete sentence in the third person (e.g. "They were charged $49.99 on Oct 3.").
 For every fact, "quote" must be copied word-for-word from the user's text (the span that supports it).
-"goal" is what they want, in one short sentence. "fallback_goal" is a reasonable second-best outcome to ask for if the first is refused (e.g. a partial refund or account credit), phrased as a request, not a fact.
-"missing" lists up to 3 details they should have ready (e.g. account email, order number, date of charge) that they did NOT give.
+"goal" is the outcome they want as a short phrase, e.g. "A full refund of the $49.99 charge". "fallback_goal" is a reasonable second-best outcome as a short phrase, e.g. "An account credit for the charge".
+"missing" lists up to 3 details they should have ready that they did NOT give, in plain lowercase words, e.g. "your account email", "the date you cancelled".
 Reply with JSON only.`,
     },
     { role: "user", content: errand },
@@ -69,15 +69,15 @@ export function kitMessages(errand, facts) {
   return [
     {
       role: "system",
-      content: `You write a ready-to-use kit for a customer-service errand, using only the facts provided.
+      content: `You write a ready-to-use kit for a customer-service errand, using only the facts provided. Everything is written in the CUSTOMER's voice ("I"), to be said or sent TO the company. Never write as the company or its agent.
 ${RULES}
 Fields:
 - email_subject: short and specific.
 - email_body: 90-160 words. Greeting, what happened (facts only), the exact request, ask for written confirmation and a reference number, sign off with [YOUR NAME]. Use placeholders for unknown details. Separate paragraphs with a blank line (\\n\\n).
 - chat_message: the same request in 2-3 sentences for a support chat box.
-- phone_opener: the first two sentences to say when a person answers.
+- phone_opener: the first two sentences the customer says when an agent picks up, e.g. "Hi, my name is [YOUR NAME]. I'm calling about ...".
 - phone_ask: one sentence that states the exact outcome wanted.
-- if_they_refuse: 3 short, polite lines to say if the agent says no (ask for a supervisor or the cancellations/retention team, restate the request, ask for the ${facts.fallback_goal ? "fallback: " + facts.fallback_goal : "best alternative they can offer"}).
+- if_they_refuse: 3 short, polite lines the customer says if the agent says no (ask for a supervisor or the cancellations/retention team, restate the request, ask for the ${facts.fallback_goal ? "fallback: " + facts.fallback_goal : "best alternative they can offer"}).
 - phone_close: one or two sentences that ask for a reference number and the agent's name, and confirm what was agreed.
 Reply with JSON only.`,
     },

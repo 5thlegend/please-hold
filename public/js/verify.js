@@ -121,21 +121,25 @@ export function checkText(output, input) {
   return { text: segments.map((s) => s.text).join(""), segments, claims: report };
 }
 
-// Facts from pass 1 must quote the user. Anything that doesn't is dropped before pass 2.
+// Facts from pass 1 must come from the user. A fact is kept if its quote really is the user's
+// words, or (small models often "quote" their own paraphrase) if every number in it checks out
+// and most of its content words appear in what the user typed. Anything else is dropped before pass 2.
+const FILLER = new Set(["they", "them", "their", "theirs", "were", "was", "the", "and", "that", "this", "have", "has", "had", "with", "for", "user", "customer"]);
 export function checkFacts(facts, input) {
   const n = norm(input);
   const words = (s) => norm(s).split(/[^a-z0-9$.£€]+/).filter((w) => w.length > 1);
   const inputWords = new Set(words(input));
+  const overlap = (s) => {
+    const w = words(s).filter((x) => !FILLER.has(x));
+    return w.filter((x) => inputWords.has(x)).length / Math.max(1, w.length);
+  };
   const kept = [];
   const dropped = [];
   for (const f of facts || []) {
     const q = norm(f.quote || "").replace(/^["']|["']$/g, "").trim();
     let ok = q.length > 0 && n.includes(q);
-    if (!ok && q) {
-      const w = words(q);
-      const overlap = w.filter((x) => inputWords.has(x)).length / Math.max(1, w.length);
-      ok = overlap >= 0.8;
-    }
+    if (!ok && q) ok = overlap(q) >= 0.8;
+    if (!ok) ok = overlap(f.fact || "") >= 0.6 && checkText(f.fact || "", input).claims.length > 0;
     // The fact itself must not smuggle in a number the user never typed.
     if (ok) {
       const bad = checkText(f.fact, input).claims.filter((c) => c.status !== "verified");

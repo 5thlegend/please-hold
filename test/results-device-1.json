@@ -1,0 +1,113 @@
+{
+ "totals": {
+  "backend": "device-1",
+  "model": "",
+  "errands": 24,
+  "ok": 0,
+  "verified": 0,
+  "caught": 0,
+  "unverified": 0,
+  "dropped": 0,
+  "placeholders": 0,
+  "avgSecs": null,
+  "avgWords": null
+ },
+ "results": [
+  {
+   "errand": "Lumen Fitness charged me $49.99 on Oct 3 even though I cancelled on Sept 28. Member #448210. I want it refunded.",
+   "error": "Your GPU reset while Gemma was writing (usually not enough free video memory). Try again, or pick Gemma 3 1B or the cloud option."
+  },
+  {
+   "errand": "My Northwind Internet bill went from $65 to $95 this month with no warning. Account 7731-0042. I want the old price back.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "I returned a coffee grinder to Brightway Home on Sept 30 (order BH-20931) and still haven't gotten my $89 refund.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "StreamBox keeps charging me $15.99 a month for a plan I never signed up for. Cancel it and refund the last two charges.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Cancel my Pebble Mobile line. I don't know their number or my account number, I just want out.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Skyway Air lost my suitcase on my flight home last Tuesday. I need it found or I need to be paid for it.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Harbor Bank charged me a $35 overdraft fee when my paycheck was literally pending. Get the fee reversed.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "My Kettle & Co blender stopped working after 2 weeks. I want a replacement, not a repair.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Greenline Energy says I owe $212 but my meter reading was 4410 and they billed for 4810. Fix the bill.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Cancel my CloudVault storage subscription before it renews on November 1. It's $119.99 a year.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "The dentist office billed my insurance wrong and now Mercy Dental says I owe $340. I need them to resubmit the claim.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "QuickCart delivered someone else's groceries to me and charged me $76.40 for my order that never came.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "I got charged twice for the same Fern & Fig dinner, $58.20 each, on Oct 11. Refund one of them.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "My landlord's property company, Oakridge Living, hasn't fixed the heat in unit 3B for 9 days.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Velo Gym won't let me cancel online and says I have to come in person. I moved 300 miles away.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Bolt Rentals kept my $500 security deposit and said the carpet was damaged, but it was like that when I moved in.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "I ordered shoes from Stride Outlet, order SO-55812, they came in the wrong size and the return label link is broken.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Hulu-style app NightReel raised my price without telling me. Downgrade me to the basic plan.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "My car insurance with Maple Mutual went up 22% at renewal and I've had no claims. Ask why and ask for a lower rate.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Sunrise Pharmacy charged me $120 for a prescription that's supposed to be $10 with my insurance.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "I need Brightline Cable to stop sending me paper bills and to remove the $2.99 paper bill fee they've been charging.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "TicketHub cancelled the concert on Oct 18 but only refunded the ticket, not the $31 in fees.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "Cancel the free trial of PhotoForge before it turns into a $79 annual charge. I signed up 5 days ago.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  },
+  {
+   "errand": "ParcelPro says my package was delivered but it wasn't. Tracking number 1Z84F6. It was a $230 monitor.",
+   "error": "Cannot read properties of null (reading 'chat')"
+  }
+ ]
+}

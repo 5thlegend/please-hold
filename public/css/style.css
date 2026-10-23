@@ -166,3 +166,7 @@ mark.c { background: var(--caught); color: #ffd9d0; border-radius: 4px; padding:
 @media (prefers-reduced-motion: reduce) {
   .steps li.active::before { animation: none; }
 }
+
+.ollama-cmd { display: grid; gap: 6px; margin: -6px 0 16px; font-size: 13px; color: var(--ink-3); }
+.ollama-cmd code { display: block; overflow-x: auto; white-space: nowrap; font: 12.5px/1.5 ui-monospace, Consolas, monospace; color: var(--ink); background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.ollama-cmd button { justify-self: start; }

@@ -1,5 +1,5 @@
 // Please Hold — offline app shell. (WebLLM caches the model weights itself.)
-const CACHE = "please-hold-v1";
+const CACHE = "please-hold-v2";
 const SHELL = [
   "/",
   "/css/style.css",
@@ -8,7 +8,7 @@ const SHELL = [
   "/js/kit.js",
   "/js/verify.js",
   "/js/holdmusic.js",
-  "/vendor/web-llm-0.2.86.js",
+  "/vendor/web-llm-0.2.85.js",
   "/icon.svg",
   "/manifest.webmanifest",
 ];
